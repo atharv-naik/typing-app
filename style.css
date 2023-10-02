@@ -1,0 +1,128 @@
+:root {
+    --bg-color: #81d0fd;
+    --text-color: #fff;
+    --light-blue: #81d0fd;
+    --dark-blue: #009ffb;
+    --light-yellow: #feed54;
+    --dark-yellow: #fbcd00;
+
+    --current-letter-bg-color: #fbcd00;
+} 
+
+body {
+    background-color: var(--light-yellow);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.1s linear;
+
+
+    /* background-color: black; */
+}
+.text-display-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-display {
+    font-size: 3rem;
+    text-align: center;
+    font-family: monospace;
+    color: #fff;
+    font-weight: bold;
+    padding: 10rem;
+    /* text-shadow: 0 0 0.2rem #8d8d8d; */
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    
+    /* font-family: Oswald;
+    font-size: 5rem;
+    scale: 1 1.1; */
+}
+.current-letter {
+    background-color: var(--current-letter-bg-color);
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
+    width: 1rem;
+
+
+    /* background-color: rgb(255, 191, 0);
+    border-radius: .8rem;
+    color: black;
+    padding: 0 0.9rem;
+    margin-right: 0.5rem; */
+}
+
+.incorrect-letter {
+    background-color: #ff0000;
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
+}
+
+.refresh {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    padding: 0.2rem 0.2rem 0.08rem 0.2rem;
+
+    background-color: var(--current-letter-bg-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 0.4rem #8d8d8d;
+}
+
+.refresh:hover {
+    opacity: 0.8;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1rem;
+    padding: 0.2rem 0.2rem 0.08rem 0.2rem;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    font-family: cursive;
+
+    background-color: var(--current-letter-bg-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    /* box-shadow: 0 0 0.4rem #8d8d8d; */
+}
+
+.wpm-graph-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 1rem;
+    padding: 0.2rem;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    font-family: cursive;
+
+    background-color: var(--light-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    height: 12rem;
+    /* width: 20rem; */
+    /* border: 1px solid var(--current-letter-bg-color); */
+    
+}
+
+#wpm-graph {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
