@@ -26,6 +26,32 @@ allowedKeys = [
   "x",
   "y",
   "z",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
   " ",
   "0",
   "1",
@@ -100,8 +126,6 @@ function applyRandomColor() {
   if (randomLightColor > 30 && randomLightColor < 200) {
     randomLightColor = (randomLightColor + 170) % 360;
   }
-  console.log(randomLightColor);
-  // document.body.style.backgroundColor = `hsl(${randomLightColor}, 100%, 80%)`;
 
   // apply a corresponding dark shade on current-letter
   randomDarkColor = Math.floor(Math.random() * 360) + 180;
@@ -114,7 +138,7 @@ function applyRandomColor() {
     `hsl(${randomLightColor}, 100%, 80%)`
   );
   document.body.style.setProperty(
-    "--light-color",
+    "--wpm-graph-bg-color",
     `hsl(${randomLightColor}, 70%, 70%)`
   );
 }
@@ -166,6 +190,27 @@ function updateWPM() {
   }
 }
 
+function updateNewRecord() {
+  // updates and saves the new record in local storage
+  WPM = document.querySelector("#score").innerText;
+
+  if (localStorage.getItem("record") == null) {
+    localStorage.setItem("record", WPM);
+    document.querySelector("#record").innerText = WPM;
+  } else if (WPM > localStorage.getItem("record")) {
+    localStorage.setItem("record", WPM);
+    document.querySelector("#record").innerText = WPM;
+  }
+}
+
+function loadSavedRecord() {
+  // loads the saved record from local storage
+  if (localStorage.getItem("record") != null) {
+    document.querySelector("#record").innerText =
+      localStorage.getItem("record");
+  }
+}
+
 // Plot wpm vs time graph
 const wpmGraphCanvas = document.querySelector("#wpm-graph");
 const wpmGraphContext = wpmGraphCanvas.getContext("2d");
@@ -179,7 +224,7 @@ function drawGraph(dataPoints) {
       wpmGraphCanvas.width,
     wpmGraphCanvas.height
   );
-  // wpmGraphContext.lineTo(0, wpmGraphCanvas.height);
+  // scale the y axis to the maximum value of y in the dataPoints array
   dataPoints.forEach((dataPoint) => {
     wpmGraphContext.lineTo(
       (dataPoint.x / dataPoints[dataPoints.length - 1].x) *
@@ -203,12 +248,25 @@ function drawGraph(dataPoints) {
   wpmGraphContext.fillText("WPM", 10, 10);
   wpmGraphContext.lineTo(wpmGraphCanvas.width, wpmGraphCanvas.height);
   wpmGraphContext.fill();
-  // wpmGraphContext.closePath();
 }
 
 // EVENT LISTENERS //
 
+// listen for keydown
 document.addEventListener("keydown", function (event) {
+  if (event.key === "Control") disablePreventDefault = true;
+});
+
+// listen for keyup
+document.addEventListener("keyup", function (event) {
+  if (event.key === "Control") disablePreventDefault = false;
+});
+
+document.addEventListener("keydown", function (event) {
+  // prevent default if the key pressed is a valid key
+  if (!disablePreventDefault && allowedKeys.includes(event.key)) {
+    event.preventDefault();
+  }
   // the task is to listen for keydown and check if the key pressed is valid and equal to the current letter && !specialKeys.includes(event.key)
   // if it is then remove the class current-letter from current letter and add the class current-letter to the next letter
   // if it is not then add the class incorrect-letter to the current letter
@@ -220,6 +278,7 @@ document.addEventListener("keydown", function (event) {
       level++;
       i = 0;
       newText();
+      updateNewRecord();
     }
     text.children[i].classList.add("current-letter");
   } else if (
@@ -290,6 +349,7 @@ if (mobileCheck()) {
   startTime = 0;
   applyRandomColor();
   newText();
+  loadSavedRecord();
   // update wpm every 500ms
   setInterval(updateWPM, 500);
 }

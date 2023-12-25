@@ -78,7 +78,6 @@ body {
 .score {
     position: absolute;
     top: 0;
-    left: 0;
     margin: 1rem;
     padding: 0.2rem 0.2rem 0.08rem 0.2rem;
     font-size: 3rem;
@@ -89,6 +88,14 @@ body {
     background-color: var(--current-letter-bg-color);
     border-radius: 0.5rem;
     cursor: pointer;
+}
+
+.score__current {
+    left: 0;
+}
+
+.score__record {
+    right: 0;
 }
 
 .wpm-graph-wrapper {
@@ -103,7 +110,7 @@ body {
     font-weight: bold;
     font-family: cursive;
 
-    background-color: var(--light-color);
+    background-color: var(--wpm-graph-bg-color);
     border-radius: 0.5rem;
     cursor: pointer;
     height: 12rem;
@@ -125,7 +132,7 @@ body {
 }
 
 .github-link svg {
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 50%;
     transform: scale(0.5);
     transition: all 0.1s linear;
