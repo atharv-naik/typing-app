@@ -114,7 +114,8 @@ function displayMobileMessage() {
 }
 
 // init the app
-function initializeApp() {
+async function initializeApp() {
+  await fetchCorpus();
   updateTextContent();
   loadSavedRecord();
   setInterval(updateWPM, WPM_UPDATE_INTERVAL);
@@ -153,13 +154,15 @@ REFRESH_BUTTON.addEventListener("click", () => {
   updateTextContent();
 });
 
-fetch("/corpus_clean.txt")
-  .then((response) => response.text())
-  .then((textCorpusSentence) => {
-    textArray = textCorpusSentence.split(". ").filter(
-      (sentence) => sentence.length > 75 && sentence.length < 200
-    );
-  });
+async function fetchCorpus () {
+  fetch("corpus/clean.txt")
+    .then((response) => response.text())
+    .then((textCorpusSentence) => {
+      textArray = textCorpusSentence.split(". ").filter(
+        (sentence) => sentence.length > 75 && sentence.length < 200
+      );
+    });
+}
 
 if (/Mobi|Android/i.test(navigator.userAgent)) {
   displayMobileMessage();
