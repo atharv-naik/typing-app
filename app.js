@@ -153,7 +153,7 @@ REFRESH_BUTTON.addEventListener("click", () => {
   updateTextContent();
 });
 
-fetch("/corpus/clean.txt")
+fetch("/corpus_clean.txt")
   .then((response) => response.text())
   .then((textCorpusSentence) => {
     textArray = textCorpusSentence.split(". ").filter(
