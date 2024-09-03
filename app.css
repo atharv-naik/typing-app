@@ -1,14 +1,14 @@
-:root {
-    --bg-color: #81d0fd;
-    --text-color: #fff;
-    --light-blue: #81d0fd;
-    --dark-blue: #009ffb;
-    --light-yellow: #feed54;
-    --dark-yellow: #fbcd00;
+/* ROOT VARIABLES */
 
-    --current-letter-bg-color: #fbcd00;
-    --body-bg-color: #fff;
+:root {
+    --current-letter-bg-color: rebeccapurple;
+    --current-letter-color: white;
+    --text-display-color: #993396;
+    --body-bg-color: #171717;
+    --wpm-graph-bg-color: #5f5562a6;
 }
+
+/* GLOBAL STYLES */
 
 * {
     box-sizing: border-box;
@@ -23,9 +23,13 @@ body {
     overflow: hidden;
     transition: all 0.1s linear;
 }
+
 .container {
     display: none;
 }
+
+/* TEXT DISPLAY STYLES */
+
 .text-display-wrapper {
     width: 100%;
     height: 100vh;
@@ -33,21 +37,20 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .text-display {
     font-size: 3rem;
     text-align: center;
     font-family: monospace;
-    color: black;
+    color: var(--text-display-color);
     font-weight: bold;
     padding: 10rem;
-
-    -webkit-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
+
 .current-letter {
     background-color: var(--current-letter-bg-color);
-    color: #fff;
+    color: var(--current-letter-color);
     padding: 0 0.2rem;
     border-radius: 0.2rem;
 }
@@ -58,33 +61,37 @@ body {
     border-radius: 0.2rem;
 }
 
+/* REFRESH BUTTON STYLES */
+
 .refresh {
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 1rem;
-    padding: 0.2rem 0.2rem 0.08rem 0.2rem;
-
-    background-color: var(--current-letter-bg-color);
-    border-radius: 0.5rem;
     cursor: pointer;
-    box-shadow: 0 0 0.4rem #8d8d8d;
+}
+
+.refresh svg {
+    fill: #993396;
+    scale: 1.1;
+    transition: all 0.1s linear;
 }
 
 .refresh:hover {
-    opacity: 0.8;
+    filter: brightness(1.2);
 }
+
+/* SCORE DISPLAY STYLES */
 
 .score {
     position: absolute;
     top: 0;
     margin: 1rem;
-    padding: 0.2rem 0.2rem 0.08rem 0.2rem;
+    padding: 0.2rem;
     font-size: 3rem;
-    color: white;
+    color: #ccc;
     font-weight: bold;
     font-family: cursive;
-
     background-color: var(--current-letter-bg-color);
     border-radius: 0.5rem;
     cursor: pointer;
@@ -98,6 +105,8 @@ body {
     right: 0;
 }
 
+/* WPM GRAPH STYLES */
+
 .wpm-graph-wrapper {
     position: absolute;
     bottom: 0;
@@ -109,7 +118,6 @@ body {
     color: white;
     font-weight: bold;
     font-family: cursive;
-
     background-color: var(--wpm-graph-bg-color);
     border-radius: 0.5rem;
     cursor: pointer;
@@ -124,6 +132,8 @@ body {
     overflow: hidden;
 }
 
+/* GITHUB LINK STYLES */
+
 .github-link {
     position: fixed;
     padding: 0;
@@ -132,7 +142,7 @@ body {
 }
 
 .github-link svg {
-    /* background-color: #fff; */
+    background-color: black;
     border-radius: 50%;
     transform: scale(0.5);
     transition: all 0.1s linear;
@@ -144,15 +154,17 @@ body {
 
 .github-link a {
     text-decoration: none;
-    -webkit-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
 
+/* DESKTOP-ONLY MESSAGE STYLES */
+
 .desktop-only-wrapper {
     width: 100%;
     height: 100vh;
-    background-color: #fff;
+    background-color: var(--body-bg-color);
+    color: #ccc;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -168,6 +180,8 @@ body {
     padding-inline: 2rem;
 }
 
+/* APP NAME GRADIENT STYLES */
+
 .app-name__gradiant {
     background: linear-gradient(to left, #c381fd, #0047fb);
     -webkit-background-clip: text;
@@ -175,4 +189,3 @@ body {
     -webkit-text-fill-color: transparent;
     font-weight: 800;
 }
-
