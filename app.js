@@ -13,6 +13,7 @@ const WPM_GRAPH_CONTEXT = WPM_GRAPH_CANVAS.getContext("2d");
 const REFRESH_BUTTON = document.querySelector(".refresh");
 const SCORE_ELEMENT = document.querySelector("#score");
 const RECORD_ELEMENT = document.querySelector("#record");
+const WPM_MAX_PT_BUFFER = 20; // buffer height for the WPM max point
 const COLOR_HUE_ADJUSTMENT = 170;
 const COLOR_THRESHOLD_MIN = 30;
 const COLOR_THRESHOLD_MAX = 200;
@@ -39,6 +40,11 @@ function updateTextContent() {
   const textSentence = getRandomText();
   textSentence.split("").forEach((letter) => {
     const span = document.createElement("span");
+    if (letter === ' ') {
+      span.classList.add("space-letter");
+    }
+    // replace with &nbsp; to keep the space width
+    span.innerHTML = letter === " " ? "&nbsp;" : letter;
     span.innerHTML = letter;
     TEXT_ELEMENT.appendChild(span);
   });
@@ -55,7 +61,7 @@ function updateWPM() {
     const endTime = new Date();
     const timeElapsed = endTime - startTime;
     const WPM = Math.round(currentIndex / (timeElapsed / 60000) / 5);
-    SCORE_ELEMENT.innerText = WPM;
+    SCORE_ELEMENT.innerText = `${WPM}wpm`;
     dataPoints.push({ x: timeElapsed / 1000, y: WPM });
     drawGraph(dataPoints);
   }
@@ -68,7 +74,7 @@ function updateNewRecord() {
 
   if (savedRecord === null || WPM > savedRecord) {
     localStorage.setItem("record", WPM);
-    RECORD_ELEMENT.innerText = WPM;
+    RECORD_ELEMENT.innerText = `${WPM}wpm`;
   }
 }
 
@@ -87,12 +93,12 @@ function drawGraph(dataPoints) {
 
   dataPoints.forEach((dataPoint, index) => {
     const x = (dataPoint.x / dataPoints[dataPoints.length - 1].x) * WPM_GRAPH_CANVAS.width;
-    const y = WPM_GRAPH_CANVAS.height - (dataPoint.y / Math.max(...dataPoints.map(dp => dp.y))) * WPM_GRAPH_CANVAS.height;
+    const y = (WPM_GRAPH_CANVAS.height + WPM_MAX_PT_BUFFER) - (dataPoint.y / Math.max(...dataPoints.map(dp => dp.y))) * WPM_GRAPH_CANVAS.height;
     index === 0 ? WPM_GRAPH_CONTEXT.moveTo(x, y) : WPM_GRAPH_CONTEXT.lineTo(x, y);
   });
 
-  WPM_GRAPH_CONTEXT.strokeStyle = "black";
-  WPM_GRAPH_CONTEXT.lineWidth = 1;
+  WPM_GRAPH_CONTEXT.strokeStyle = "#171717";
+  WPM_GRAPH_CONTEXT.lineWidth = 3;
   WPM_GRAPH_CONTEXT.stroke();
 }
 
@@ -135,7 +141,9 @@ document.addEventListener("keydown", (event) => {
   if (!disablePreventDefault && ALLOWED_KEYS.includes(event.key)) {
     event.preventDefault();
   }
-  if (event.key === TEXT_ELEMENT.children[currentIndex].innerHTML) {
+  var currentLetter = TEXT_ELEMENT.children[currentIndex].innerHTML;
+  currentLetter = currentLetter === "&nbsp;" ? " " : currentLetter;
+  if (event.key === currentLetter) {
     TEXT_ELEMENT.children[currentIndex].classList.remove("current-letter", "incorrect-letter");
     currentIndex++;
     if (currentIndex >= TEXT_ELEMENT.children.length) {

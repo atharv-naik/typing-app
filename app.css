@@ -28,6 +28,19 @@ body {
     display: none;
 }
 
+/* ICON DISPLAY STYLES */
+
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-wrapper svg {
+    fill: inherit;
+    transition: all 0.1s linear;
+}
+
 /* TEXT DISPLAY STYLES */
 
 .text-display-wrapper {
@@ -39,26 +52,36 @@ body {
 }
 
 .text-display {
+    line-height: 4rem;
     font-size: 3rem;
     text-align: center;
     font-family: monospace;
     color: var(--text-display-color);
+    background-color: #9933960f;
+    border-radius: 1rem;
     font-weight: bold;
-    padding: 10rem;
+    padding: 1rem 2rem;
+    max-width: 80%;
     user-select: none;
 }
 
+.text-display span.space-letter {
+    display: inline-block;
+    min-width: 1ch;
+    height: 1.5rem;
+}
+
 .current-letter {
-    background-color: var(--current-letter-bg-color);
-    color: var(--current-letter-color);
+    color: #cfcf22c1;
     padding: 0 0.2rem;
-    border-radius: 0.2rem;
+    box-shadow: 0 5px 0 0 #cfcf22c1;
 }
 
 .incorrect-letter {
-    background-color: #ff0000;
+    color: #f44336;
+    background-color: transparent;
     padding: 0 0.2rem;
-    border-radius: 0.2rem;
+    box-shadow: 0 5px 0 0 #f44336;
 }
 
 /* REFRESH BUTTON STYLES */
@@ -69,16 +92,18 @@ body {
     right: 0;
     margin: 1rem;
     cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.1s linear;
+    padding: 0.6rem;
+    background-color: #9933960f;
 }
 
 .refresh svg {
     fill: #993396;
-    scale: 1.1;
-    transition: all 0.1s linear;
 }
 
 .refresh:hover {
-    filter: brightness(1.2);
+    background-color: #99339623;
 }
 
 /* SCORE DISPLAY STYLES */
@@ -88,21 +113,25 @@ body {
     top: 0;
     margin: 1rem;
     padding: 0.2rem;
+    padding-inline: 15px;
     font-size: 3rem;
-    color: #ccc;
+    color: inherit;
     font-weight: bold;
     font-family: cursive;
-    background-color: var(--current-letter-bg-color);
-    border-radius: 0.5rem;
+    background-color: var(--text-display-color);
     cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .score__current {
     left: 0;
+    border-radius: 0.5rem 5rem 5rem 0.5rem;
 }
 
 .score__record {
     right: 0;
+    border-radius: 5rem 0.5rem 0.5rem 5rem;
 }
 
 /* WPM GRAPH STYLES */
@@ -119,7 +148,7 @@ body {
     font-weight: bold;
     font-family: cursive;
     background-color: var(--wpm-graph-bg-color);
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     cursor: pointer;
     height: 12rem;
 }
